@@ -1,0 +1,1 @@
+## this admin panel is produced by flask, htmx, alpinejs, bootstrap
