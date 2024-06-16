@@ -1,0 +1,27 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="position-fixed top-0 end-0 p-6 mt-2 ms-2" style="z-index: 100000; direction:ltr; text-align:left; height: 75px">
+            <div id="liveToast" class="toast text-bg-{{category}} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <!-- <div class="toast-header">
+                    <strong class="me-auto">{{ message }}</strong>
+                    <small>11 mins ago</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div> -->
+                <div class="toast-body text-center text-white p-4"> {{ message }} </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.toast').toast('show');
+    });
+</script>
+
+<!-- $('.toast').toast('show', {'delay' : 500}); -->

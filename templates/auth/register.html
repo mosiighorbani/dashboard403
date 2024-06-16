@@ -7,34 +7,63 @@
       <div class="col-md-6">
         <div class="card mb-4 mx-4">
           <div class="card-body p-4">
-            <h1>Register</h1>
-            <p class="text-medium-emphasis">Create your account</p>
-            <div class="input-group mb-3"><span class="input-group-text">
-                <svg class="icon">
-                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-
-                </svg></span>
-              <input class="form-control" type="text" placeholder="Username">
+            <h1 class="text-center">Register Form</h1>
+            <p class="text-medium-emphasis text-center">Create your account</p>
+            <form action="{{url_for('auth.register')}}" method="post" novalidate>
+              {{form.csrf_token}}
+              <div class="input-group mb-3"><span class="input-group-text">
+                  <svg class="icon">
+                    <use xlink:href="{{url_for('static', filename='vendors/@coreui/icons/svg/free.svg#cil-user')}}">
+                    </use>
+                  </svg></span>
+                {{form.name(class="form-control" ,placeholder="Full Name")}}
+                <!-- <input class="form-control" type="text" placeholder="Username"> -->
+              </div>
+              <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">
+                  <svg class="icon">
+                    <use
+                      xlink:href="{{url_for('static', filename='vendors/@coreui/icons/svg/free.svg#cil-envelope-open')}}">
+                    </use>
+                  </svg>
+                </span>
+                {% if form.phone.errors %}
+                  {{form.phone(class="form-control" ,placeholder="Mobile Number", required='')}}
+                  <div class="invalid-feedback">
+                    {% for error in form.phone.errors %}
+                    <span>{{error}}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{form.phone(class="form-control" ,placeholder="Mobile Number")}}
+                {% endif %}
+              </div>
+              <div class="input-group mb-3"><span class="input-group-text">
+                  <svg class="icon">
+                    <use
+                      xlink:href="{{url_for('static', filename='vendors/@coreui/icons/svg/free.svg#cil-lock-locked')}}">
+                    </use>
+                  </svg></span>
+                {{form.password(class="form-control" ,placeholder="Password")}}
+                <!-- <input class="form-control" type="password" placeholder="Password"> -->
+              </div>
+              <div class="input-group mb-4"><span class="input-group-text">
+                  <svg class="icon">
+                    <use
+                      xlink:href="{{url_for('static', filename='vendors/@coreui/icons/svg/free.svg#cil-lock-locked')}}">
+                    </use>
+                  </svg></span>
+                {{form.password_confirm(class="form-control" ,placeholder="Repeat Password")}}
+                <!-- <input class="form-control" type="password" placeholder="Repeat password"> -->
+              </div>
+              <div class="text-center">
+                {{form.submit(class="btn btn-block btn-success", value='Create Account')}}
+                <!-- <button class="btn btn-block btn-success" type="submit">Create Account</button> -->
+              </div>
+            </form>
+            <div class="col-12 text-center">
+              <a class="btn btn-link px-0 mt-3" type="button" style="direction: ltr;" href="{{url_for('auth.login')}}"> I Registered Previously</a>
             </div>
-            <div class="input-group mb-3"><span class="input-group-text">
-                <svg class="icon">
-                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
-                </svg></span>
-              <input class="form-control" type="text" placeholder="Email">
-            </div>
-            <div class="input-group mb-3"><span class="input-group-text">
-                <svg class="icon">
-                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
-                </svg></span>
-              <input class="form-control" type="password" placeholder="Password">
-            </div>
-            <div class="input-group mb-4"><span class="input-group-text">
-                <svg class="icon">
-                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
-                </svg></span>
-              <input class="form-control" type="password" placeholder="Repeat password">
-            </div>
-            <button class="btn btn-block btn-success" type="button">Create Account</button>
           </div>
         </div>
       </div>

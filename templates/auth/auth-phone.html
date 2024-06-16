@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mb-4 mx-4">
+                    <div class="card-body p-4">
+                        <h1 class="text-center">Authentication Phone Form</h1>
+                        <p class="text-medium-emphasis text-center">Trustified Phone Number</p>
+                        <form action="{{url_for('auth.auth_phone', token=token)}}" method="post" novalidate>
+                            {{form.csrf_token}}
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <svg class="icon">
+                                        <use xlink:href="{{url_for('static', filename='vendors/@coreui/icons/svg/free.svg#cil-user')}}"></use>
+                                    </svg>
+                                </span>
+                                {{form.code(class="form-control" ,placeholder="Code Auth")}}
+                            </div>
+                            <div class="text-center">
+                                {{form.submit(class="btn btn-block btn-success", value='Authentication Phone')}}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

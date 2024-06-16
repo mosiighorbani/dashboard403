@@ -5,7 +5,7 @@ import os
 class Config(object):
     # ========================================================================================
     # SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://mosi:123456789@localhost/dashboard"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://mosi:MOsi$324869@localhost/dashboard"
     # SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')
     SQLALCHEMY_TRACK_MODIFICATIONS = "False"
     # SQLALCHEMY_POOL_SIZE = os.getenv('SQLALCHEMY_POOL_SIZE')

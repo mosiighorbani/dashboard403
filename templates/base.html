@@ -9,7 +9,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Admin Panel 1403</title>
+    <title>Admin Panel 1403 - {% block title %}{% endblock %}</title>
     <link rel="manifest" href="assets/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
@@ -25,7 +25,7 @@
 </head>
 
 <body>
-
+    {% include 'flash.html' %}
     {% block content %} {% endblock %}
 
     <!-- CoreUI and necessary plugins-->
@@ -36,8 +36,6 @@
     <script src="{{url_for('static', filename='vendors/@coreui/chartjs/js/coreui-chartjs.js')}}"></script>
     <script src="{{url_for('static', filename='vendors/@coreui/utils/js/coreui-utils.js')}}"></script>
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
-    <script>
-    </script>
 
 </body>
 
