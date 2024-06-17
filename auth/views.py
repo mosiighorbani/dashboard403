@@ -6,6 +6,7 @@ from .models import User
 from .forms import RegisterForm, LoginForm, PhoneForm, AuthPhoneForm, PasswordForm
 from app import db
 from flask_login import login_user, current_user, logout_user
+from datetime import datetime
 
 
 
@@ -68,8 +69,11 @@ def login():
         if not user.check_password(password):
             flash('your password is incorrect', 'danger')
             return redirect(url_for('auth.login'))
-        flash(f'Welcome {user.name} to admin panel', 'success')
+        user.login_at = datetime.now()
+        db.session.commit()
+        db.session.flush()
         login_user(user)
+        flash(f'Welcome {user.name} to admin panel', 'success')
         return redirect(url_for('admin.index'))
     # GET Request
     return render_template('auth/login.html', form=form)
@@ -77,6 +81,9 @@ def login():
 
 @auth.route('/logout')
 def logout():
+    current_user.logout_at = datetime.now()
+    db.session.commit()
+    db.session.flush()
     flash(f'{current_user.name} is logged out successfully', 'warning')
     logout_user()
     return redirect(url_for('auth.login'))
@@ -154,6 +161,7 @@ def change_pass():
             user.set_password(password)
             user.token = None
             user.code = None
+            user.updated_at = datetime.now()
             db.session.commit()
             db.session.flush()
             flash('your password is changed successfully', 'success')
