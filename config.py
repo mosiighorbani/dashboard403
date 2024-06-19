@@ -4,7 +4,7 @@ import datetime
 
 
 class Config(object):
-    # ========================================================================================
+    # =========================== SQLALCHEMY Settings ========================================
     # SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://mosi:MOsi$324869@localhost/dashboard"
     # SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')
@@ -13,14 +13,15 @@ class Config(object):
     # SQLALCHEMY_MAX_OVERFLOW = os.getenv('SQLALCHEMY_MAX_OVERFLOW')
     # SQLALCHEMY_PRE_PING = os.getenv('SQLALCHEMY_PRE_PING')
     # SQLALCHEMY_RECYCLE = os.getenv('SQLALCHEMY_RECYCLE')
-    # ========================================================================================
-    JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(hours=1)
-    JWT_REFRESH_TOKEN_EXPIRES = datetime.timedelta(days=30)
-    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
-    JWT_BLACKLIST_ENABLED = os.getenv('JWT_BLACKLIST_ENABLED')
-    JWT_BLACKLIST_TOKEN_CHECKS = os.getenv('JWT_BLACKLIST_TOKEN_CHECKS')
-    JWT_ACCESS_TOKEN_EXPIRES = os.getenv('JWT_ACCESS_TOKEN_EXPIRES')
-    JWT_REFRESH_TOKEN_EXPIRES = os.getenv('JWT_REFRESH_TOKEN_EXPIRES')
+    # ========================= API Settings=================================================
+    API_TITLE = "Dashboard REST API"
+    API_VERSION = "v1"
+    OPENAPI_VERSION = "3.0.3"
+    OPENAPI_URL_PREFIX = "/"
+    OPENAPI_SWAGGER_UI_PATH = "/swagger-ui"
+    OPENAPI_SWAGGER_UI_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
+    JWT_SECRET_KEY = "mosi"
+    PROPAGATE_EXCEPTIONS = True
     # ========================================================================================
     UPLOAD_DIR = os.path.curdir + '/static/uploads/'
     # SECRET_KEY = os.getenv('SECRET_KEY')
