@@ -2,7 +2,7 @@ import uuid
 import random
 from . import auth
 from flask import render_template, request, redirect, url_for, flash
-from .models import User
+from .models import UserModel
 from .forms import RegisterForm, LoginForm, PhoneForm, AuthPhoneForm, PasswordForm
 from app import db
 from flask_login import login_user, current_user, logout_user
@@ -32,7 +32,7 @@ def register():
         if  password != password_confirm:
             flash('your password and confirm password is not equal', 'danger')
             return redirect(url_for('auth.register'))
-        user = User()
+        user = UserModel()
         user.name = name
         user.phone = phone
         user.set_password(password)
@@ -62,7 +62,7 @@ def login():
             return redirect(url_for('auth.login'))
         phone = request.form.get('phone')
         password = request.form.get('password')
-        user = User.query.filter_by(phone=phone).first()
+        user = UserModel.query.filter_by(phone=phone).first()
         if not user:
             flash('this phone is not registered yet, please register now', 'danger')
             return redirect(url_for('auth.login'))
@@ -101,7 +101,7 @@ def forgot_pass():
             flash('your phone number is incorrect', 'warning')
             return redirect(url_for('auth.forgot_pass'))
         phone = request.form.get('phone')
-        user = User.query.filter_by(phone=phone).first()
+        user = UserModel.query.filter_by(phone=phone).first()
         if not user:
             flash('this phone number is not registered yet', 'danger')
             return redirect(url_for('auth.forgot_pass'))
@@ -129,7 +129,7 @@ def auth_phone():
         if not form.validate_on_submit():
             flash('your code is not valid', 'warning')
             return redirect(url_for('auth.auth_phone'))
-        user = User.query.filter_by(token=token).first()
+        user = UserModel.query.filter_by(token=token).first()
         if not user:
             flash('eneter values is incorrect, please try again', 'danger')
             return redirect(url_for('auth.forgot_pass'))
@@ -146,7 +146,7 @@ def auth_phone():
 @auth.route('chnage-pass', methods=['POST', 'GET'])
 def change_pass():
     token = request.args.get('token')
-    user = User.query.filter_by(token=token).first()
+    user = UserModel.query.filter_by(token=token).first()
     form = PasswordForm()
     if request.method == 'POST':
         if not form.validate_on_submit():

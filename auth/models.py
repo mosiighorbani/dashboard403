@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 
-class User(db.Model, UserMixin):
+class UserModel(db.Model, UserMixin):
     __tablename__ = 'users'
     id = Column(Integer(), primary_key=True)
     email = Column(String(128), nullable=True, unique=True)

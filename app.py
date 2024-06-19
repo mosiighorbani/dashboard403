@@ -9,7 +9,9 @@ from flask_migrate import Migrate
 
 
 
+
 app = Flask(__name__)
+
 
 app.config.from_object(Development)
 
@@ -35,18 +37,19 @@ migrate = Migrate(app, db)
 
 
 
-
-
-
-
-
 @app.route('/')
 def home():
     flash("All OK", 'success')
     return jsonify({
-        "dveloper" : "mosi",
-        "language" : ['python', 'js'],
-        "frameworks" : ['flask', 'bootstrap', 'html', 'alpinejs']
+        "status" : "success",
+        "message" : "Welcome to Admin Page !",
+        "data" : {
+            "dveloper" : "Mosi",
+            "year" : "1403-2024",
+            "language" : ['Python', 'JavaScript'],
+            "frameworks" : ['Flask', 'Bootstrap5', 'HTMX', 'Alpinejs']
+        }
+        
     })
 
 
@@ -59,19 +62,18 @@ from admin import admin
 from auth import auth
 
 
+
 app.register_blueprint(admin)
 app.register_blueprint(auth)
-
 # ....................................................................
 
 
-
 # ....................... login user handler ................................
-from auth.models import User
+from auth.models import UserModel
 
 @login.user_loader
 def userLoader(user_id):
-    return User.query.get(user_id)
+    return UserModel.query.get(user_id)
 
 @login.unauthorized_handler
 def unauthorized():
