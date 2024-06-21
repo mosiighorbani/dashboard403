@@ -37,10 +37,21 @@ class UserLogin(MethodView):
     def post(self, user_data):
         user = UserModel.query.filter(UserModel.phone == user_data["phone"]).first()
         if user and user.check_password(user_data["password"]):
+            print(user)
             access_token = create_access_token(identity=user.id, fresh=True)
             refresh_token = create_refresh_token(user.id)
             return {"access_token" : access_token, "refresh_token" : refresh_token}
         abort(401, message="Invalid Credentilas")
+
+
+@authApi.route("/api/auth/logout")
+class UserLogout(MethodView):
+    @jwt_required()
+    def post(self):
+        jti = get_jwt()["jti"]
+        BLOCKLIST.add(jti)
+        return {"message":"Successfully Logged Out"}, 200
+    
 
 
 
