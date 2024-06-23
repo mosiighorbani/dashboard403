@@ -14,6 +14,7 @@ class Config(object):
     # SQLALCHEMY_PRE_PING = os.getenv('SQLALCHEMY_PRE_PING')
     # SQLALCHEMY_RECYCLE = os.getenv('SQLALCHEMY_RECYCLE')
     # ========================= API Settings=================================================
+    # SERVER_NAME = 'mosinet.local:5000'
     API_TITLE = "Dashboard REST API"
     API_VERSION = "v1"
     OPENAPI_VERSION = "3.0.3"

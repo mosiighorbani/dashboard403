@@ -22,9 +22,15 @@
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link href="{{url_for('static', filename='css/examples.css')}}" rel="stylesheet">
     <link href="{{url_for('static', filename='vendors/@coreui/chartjs/css/coreui-chartjs.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/fonts/awesome/fontawesome.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/fonts/awesome/brands.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/fonts/awesome/solid.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/mystyle.css')}}" rel="stylesheet">
 </head>
 
 <body>
+    {{ moment.include_moment() }}
+    {{ moment.lang('fa') }}
     {% include 'flash.html' %}
     {% block content %} {% endblock %}
 

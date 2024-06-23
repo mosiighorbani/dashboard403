@@ -1,10 +1,10 @@
 from flask import Flask, json, jsonify, render_template, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager, login_required
 from config import Development
 from flask_migrate import Migrate
 # from flask_mail import Mail
-# from flask_moment import Moment
+from flask_moment import Moment
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from blocklist import BLOCKLIST
@@ -94,13 +94,14 @@ migrate = Migrate(app, db)
 
 # mail = Mail(app)
 
-# moment = Moment(app)
+moment = Moment(app)
 
 # ckeditor = CKEditor(app) 
 
 
 
 @app.route('/')
+@login_required
 def home():
     flash("All OK", 'success')
     return jsonify({
@@ -170,4 +171,5 @@ def NotRespond(error):
 
 
 if __name__ == '__main__':
+    # app.run(port=5000, host="localhost")
     app.run()

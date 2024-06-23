@@ -8,7 +8,8 @@ from blocklist import BLOCKLIST
 
 
 
-authApi = Blueprint("Users", "users", description="Operations on users")
+# authApi = Blueprint("Auth", "authes", subdomain="api" , description="Operations on Authentication")
+authApi = Blueprint("Auth", "authes", description="Operations on Authentication")
 
 
 
@@ -44,6 +45,17 @@ class UserLogin(MethodView):
         abort(401, message="Invalid Credentilas")
 
 
+@authApi.route("/api/auth/refresh")
+class TokenRefresh(MethodView):
+    @jwt_required(refresh=True)
+    def post(self):
+        current_user = get_jwt_identity()
+        new_token = create_access_token(identity=current_user, fresh=False)
+        jti = get_jwt()["jti"]
+        BLOCKLIST.add(jti)
+        return {"access_token":new_token}, 200
+
+
 @authApi.route("/api/auth/logout")
 class UserLogout(MethodView):
     @jwt_required()
@@ -51,6 +63,26 @@ class UserLogout(MethodView):
         jti = get_jwt()["jti"]
         BLOCKLIST.add(jti)
         return {"message":"Successfully Logged Out"}, 200
+    
+
+@authApi.route("/api/auth/user/<int:user_id>")
+class user(MethodView):
+    """for testing in development project"""
+    @authApi.response(200, UserSchema)
+    def get(self, user_id):
+        user = UserModel.query.get_or_404(user_id)
+        return user
+    
+    def delete(self, user_id):
+        user = UserModel.query.get_or_404(user_id)
+        try:
+            db.session.delete(user)
+            db.session.commit()
+            return {"message" : "User is Deleted Successfully"}, 200
+        except Exception as er:
+            abort(401, message=f"Error {er} is happened !")
+
+    
     
 
 
